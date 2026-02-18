@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicação de Apps com IA: Guia Completo Manus AI</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #f8fafc;
+            --text-color: #334155;
+            --light-card: #ffffff;
+            --border-radius: 12px;
+            --success: #10b981;
+            --error: #ef4444;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content Styles */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem 4rem;
+        }
+
+        article {
+            background: var(--light-card);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background-color: #eff6ff;
+            border-left: 5px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .alert-box {
+            background-color: #fff1f2;
+            border-left: 5px solid var(--error);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .alert-box strong {
+            color: #9f1239;
+        }
+
+        /* Step Steps */
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        /* Quiz Styles */
+        .quiz-container {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .question-card {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .option-label input {
+            margin-right: 0.75rem;
+            accent-color: var(--primary-color);
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-calculate {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+        }
+
+        .btn-calculate:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-calculate:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* Feedback Styles */
+        .feedback {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.5rem;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .feedback.correct {
+            display: block;
+            color: #065f46;
+            background-color: #d1fae5;
+            border: 1px solid #34d399;
+        }
+
+        .feedback.incorrect {
+            display: block;
+            color: #991b1b;
+            background-color: #fee2e2;
+            border: 1px solid #f87171;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            background-color: #f0f9ff;
+            color: var(--primary-color);
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            article { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Desenvolvimento Mobile com IA</h1>
+    <p>Do Prompt à Publicação na Google Play e App Store com Manus AI</p>
+</header>
+
+<main>
+    <article>
+        <h2>A Revolução "No-Code" da Manus AI</h2>
+        <p>A criação de aplicativos móveis historicamente exigia conhecimentos profundos de ambientes complexos como <strong>Xcode</strong> (para iOS) e <strong>Android Studio</strong> (para Android), além de lidar com certificados e configurações técnicas. A ferramenta <strong>Manus AI</strong> introduziu uma nova funcionalidade que simplifica esse fluxo, permitindo criar, testar e publicar aplicativos usando apenas linguagem natural.</p>
+        
+        <div class="highlight-box">
+            <strong>O que muda?</strong> Não é mais necessário instalar ambientes de desenvolvimento pesados. Você descreve o app, a IA cria o código, e a plataforma gerencia a compilação e a publicação.
+        </div>
+
+        <h2>Processo Passo a Passo</h2>
+        
+        <div class="step">
+            <div class="step-number">1</div>
+            <div>
+                <h3>Criação via Prompt</h3>
+                <p>Ao iniciar um novo projeto, selecione a opção <strong>"Desenvolver Aplicativos"</strong>. Use prompts claros começando com "Crie um aplicativo móvel de...". O exemplo do vídeo mostra a criação de um "Fitrack", um app para registro de treinos e calorias.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">2</div>
+            <div>
+                <h3>Testes em Tempo Real</h3>
+                <p>Após a geração, o teste pode ser feito de duas formas:</p>
+                <ul>
+                    <li><strong>No Navegador:</strong> A própria plataforma simula a interface do celular.</li>
+                    <li><strong>No Dispositivo Físico:</strong> A plataforma gera um <strong>QR Code</strong>. Para ler, você deve ter o app <strong>Expo Go</strong> instalado no seu smartphone.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">3</div>
+            <div>
+                <h3>Exportação e Publicação</h3>
+                <p>O Manus AI oferece abas distintas para Android e iOS. Você pode baixar o APK (para testes locais) ou o arquivo AAB (Android App Bundle) para publicação oficial na loja.</p>
+            </div>
+        </div>
+
+        <h2>Custos e Requisitos de Publicação</h2>
+        <p>Para colocar o app nas lojas oficiais, é necessário criar contas de desenvolvedor. Abaixo, detalhamos os custos e processos.</p>
+
+        <div class="alert-box">
+            <strong>⚠️ Nota do Especialista:</strong> O vídeo menciona valores de $5 para Google Play e $3 ou $93 para Apple. Estes valores podem ser promocionais, regionais ou imprecisos. Abaixo, listamos os valores padrão de mercado (2025/2026) para evitar confusão.
+        </div>
+
+        <table style="width:100%; border-collapse: collapse; margin-bottom: 2rem;">
+            <tr style="background-color: #e2e8f0;">
+                <th style="padding: 10px; text-align: left;">Loja</th>
+                <th style="padding: 10px; text-align: left;">Custo (Padrão Global)</th>
+                <th style="padding: 10px; text-align: left;">Modelo</th>
+                <th style="padding: 10px; text-align: left;">Requisito Principal</th>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #cbd5e1;">Google Play Store</td>
+                <td style="padding: 10px; border-bottom: 1px solid #cbd5e1;">US$ 25,00</td>
+                <td style="padding: 10px; border-bottom: 1px solid #cbd5e1;">Pagamento Único (Vitalício)</td>
+                <td style="padding: 10px; border-bottom: 1px solid #cbd5e1;">Verificação de Identidade</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #cbd5e1;">Apple App Store</td>
+                <td style="padding: 10px; border-bottom: 1px solid #cbd5e1;">US$ 99,00</td>
+                <td style="padding: 10px; border-bottom: 1px solid #cbd5e1;">Anual (Recorrente)</td>
+                <td style="padding: 10px; border-bottom: 1px solid #cbd5e1;">Alta Burocracia / Revisão Rigorosa</td>
+            </tr>
+        </table>
+
+        <h3>Google Play Console: Fluxo de Publicação</h3>
+        <ol>
+            <li>Pagar a taxa de registro.</li>
+            <li>Enviar documentos para verificação de identidade (pode levar alguns dias).</li>
+            <li>Criar um "Rascunho" do app.</li>
+            <li>Configurar <strong>Teste Interno</strong>: Criar uma lista de e-mails de testadores.</li>
+            <li>Após validação interna, promover para "Teste Aberto" e finalmente "Produção".</li>
+        </ol>
+    </article>
+
+    <section class="quiz-container" id="quiz">
+        <h2>Quiz de Conhecimento</h2>
+        <p style="margin-bottom: 2rem;">Teste o que você aprendeu. As perguntas mudam a cada visita!</p>
+        
+        <form id="quiz-form">
+            <div id="questions-wrapper">
+                <!-- Perguntas serão injetadas via JavaScript -->
+            </div>
+            
+            <button type="button" id="btn-calc" class="btn-calculate" onclick="calculateScore()">Calcular Nota</button>
+        </form>
+
+        <div id="result-display" class="score-display"></div>
+    </section>
+</main>
+
+<script>
+    /**
+     * BANCO DE DADOS DE PERGUNTAS (Simulado)
+     * Total: 20 perguntas para permitir rotação de conteúdo.
+     */
+    const questionPool = [
+        {
+            id: 1,
+            text: "Qual aplicativo auxiliar é necessário instalar no celular para testar o app via QR Code?",
+            options: ["Android Studio", "Expo Go", "TestFlight", "Google Home"],
+            correct: 1 // Expo Go
+        },
+        {
+            id: 2,
+            text: "Segundo o vídeo, qual ferramenta de IA está lançando a função de publicação direta?",
+            options: ["ChatGPT", "Manus AI", "Gemini", "Claude"],
+            correct: 1 // Manus AI
+        },
+        {
+            id: 3,
+            text: "Qual a extensão do arquivo gerado para publicação oficial no Google Play?",
+            options: [".APK", ".EXE", ".AAB", ".IPA"],
+            correct: 2 // .AAB
+        },
+        {
+            id: 4,
+            text: "Qual é o modelo de pagamento padrão da conta de desenvolvedor do Google Play?",
+            options: ["Mensalidade de $5", "Anuidade de $99", "Pagamento único vitalício", "Gratuito"],
+            correct: 2 // Único
+        },
+        {
+            id: 5,
+            text: "O que é necessário fazer antes de criar o app para garantir que a IA entenda que é mobile?",
+            options: ["Escrever código Java", "Selecionar 'Desenvolver Aplicativos' e pedir 'Crie um aplicativo móvel'", "Pagar a taxa antecipada", "Instalar o Xcode"],
+            correct: 1
+        },
+        {
+            id: 6,
+            text: "Qual é a principal vantagem citada sobre o uso do Manus AI para apps?",
+            options: ["É mais barato que programadores", "Dispensa o uso de Xcode e Android Studio", "Gera apenas jogos", "Funciona offline"],
+            correct: 1
+        },
+        {
+            id: 7,
+            text: "Qual é o nome do aplicativo de exemplo criado no tutorial?",
+            options: ["GymTracker", "Fitrack", "HealthGo", "TreinoIA"],
+            correct: 1 // Fitrack
+        },
+        {
+            id: 8,
+            text: "Para testes internos no Google Play Console, o que é necessário configurar?",
+            options: ["Uma lista de e-mails dos testadores", "Um cartão de crédito", "Um servidor VPS", "Uma conta Apple"],
+            correct: 0
+        },
+        {
+            id: 9,
+            text: "Quantos créditos gratuitos iniciais a conta do Manus AI oferece (segundo o vídeo)?",
+            options: ["500", "1000", "2300", "5000"],
+            correct: 2
+        },
+        {
+            id: 10,
+            text: "Qual documento é exigido pelo Google para ativar a conta de desenvolvedor?",
+            options: ["Título de Eleitor", "Comprovante de Vacinação", "Identificação oficial (Ex: CNH) e comprovante de residência", "Diploma de TI"],
+            correct: 2
+        },
+        {
+            id: 11,
+            text: "No contexto da Apple App Store, como é a cobrança da taxa de desenvolvedor?",
+            options: ["Pagamento único", "Pagamento anual (recorrente)", "Gratuito para apps simples", "Por download"],
+            correct: 1
+        },
+        {
+            id: 12,
+            text: "O que o arquivo .APK permite fazer?",
+            options: ["Publicar na loja oficial", "Testar localmente no Android sem publicar", "Testar no iPhone", "Editar o código fonte"],
+            correct: 1
+        },
+        {
+            id: 13,
+            text: "Quanto tempo a plataforma leva em média para compilar o app no vídeo?",
+            options: ["30 segundos", "2 a 5 minutos", "1 hora", "24 horas"],
+            correct: 1
+        },
+        {
+            id: 14,
+            text: "Qual sistema é conhecido por ser mais burocrático e fechado para publicação?",
+            options: ["Android/Google", "iOS/Apple", "Windows Phone", "Linux"],
+            correct: 1
+        },
+        {
+            id: 15,
+            text: "Se você quiser publicar na App Store (Apple), qual hardware normalmente seria exigido sem IA?",
+            options: ["Um PC Windows potente", "Um computador Mac (Macbook/iMac)", "Apenas um iPhone", "Um servidor Linux"],
+            correct: 1
+        },
+        {
+            id: 16,
+            text: "O que acontece se você atualizar a página deste quiz?",
+            options: ["Nada muda", "As perguntas são as mesmas", "As perguntas são embaralhadas e trocadas", "O site trava"],
+            correct: 2
+        },
+        {
+            id: 17,
+            text: "Para qual finalidade serve a aba 'Distribuição Limitada' no Manus?",
+            options: ["Vender o app", "Uso pessoal e testes locais", "Publicar na China", "Excluir o app"],
+            correct: 1
+        },
+        {
+            id: 18,
+            text: "Qual a cor do tema que o app criado no vídeo suporta?",
+            options: ["Apenas Claro", "Apenas Escuro", "Alternância Claro/Escuro", "Apenas Azul"],
+            correct: 2
+        },
+        {
+            id: 19,
+            text: "Onde o Google Play Console pede para você upar o arquivo .AAB?",
+            options: ["Em 'Criar nova versão'", "Na página inicial", "No menu de configurações", "No email"],
+            correct: 0
+        },
+        {
+            id: 20,
+            text: "Qual é o valor padrão de mercado (realidade) da taxa do Google Play, independente do vídeo?",
+            options: ["$5 USD", "$25 USD", "$50 USD", "$99 USD"],
+            correct: 1
+        }
+    ];
+
+    /**
+     * LÓGICA DO SISTEMA (Frontend Controller)
+     */
+    
+    // Função para embaralhar array (Fisher-Yates)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // Gerenciador de Seleção de Perguntas
+    function selectQuestions() {
+        const totalQuestionsNeeded = 10;
+        const replaceCount = 4; // 40%
+        
+        // Recuperar IDs da sessão anterior
+        let lastSessionIds = JSON.parse(localStorage.getItem('lastQuizIds') || '[]');
+        
+        let selectedQuestions = [];
+        
+        if (lastSessionIds.length === 0) {
+            // Primeira visita: totalmente aleatório
+            const shuffledPool = shuffleArray([...questionPool]);
+            selectedQuestions = shuffledPool.slice(0, totalQuestionsNeeded);
+        } else {
+            // Visitas subsequentes: Lógica de renovação de 40%
+            
+            // Separar pool em "Vistos recentemente" e "Novos"
+            const oldQuestions = questionPool.filter(q => lastSessionIds.includes(q.id));
+            const newQuestions = questionPool.filter(q => !lastSessionIds.includes(q.id));
+            
+            // Garantir aleatoriedade dentro dos grupos
+            shuffleArray(oldQuestions);
+            shuffleArray(newQuestions);
+            
+            // Selecionar: Max 6 do antigo (60%), Min 4 do novo (40%)
+            // Se não houver novos suficientes (caso pool pequeno), pega o que der
+            const questionsFromOld = oldQuestions.slice(0, totalQuestionsNeeded - replaceCount);
+            const questionsFromNew = newQuestions.slice(0, replaceCount);
+            
+            selectedQuestions = [...questionsFromOld, ...questionsFromNew];
+            
+            // Se ainda faltar (caso array "novos" seja pequeno demais), preencher com mais antigos
+            if (selectedQuestions.length < totalQuestionsNeeded) {
+                const remainingNeeded = totalQuestionsNeeded - selectedQuestions.length;
+                const extraOld = oldQuestions.slice(totalQuestionsNeeded - replaceCount, (totalQuestionsNeeded - replaceCount) + remainingNeeded);
+                selectedQuestions = [...selectedQuestions, ...extraOld];
+            }
+        }
+
+        // Embaralhar a ordem final de apresentação
+        shuffleArray(selectedQuestions);
+
+        // Salvar novos IDs para a próxima vez
+        const newIds = selectedQuestions.map(q => q.id);
+        localStorage.setItem('lastQuizIds', JSON.stringify(newIds));
+
+        return selectedQuestions;
+    }
+
+    // Renderizar o Quiz
+    function renderQuiz() {
+        const questions = selectQuestions();
+        const wrapper = document.getElementById('questions-wrapper');
+        wrapper.innerHTML = '';
+
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            
+            // Criar HTML das opções embaralhadas (visual apenas, mantendo índice lógico)
+            // Precisamos mapear o índice original para verificar a resposta correta depois
+            let optionsWithIndices = q.options.map((opt, i) => ({ text: opt, originalIndex: i }));
+            shuffleArray(optionsWithIndices);
+
+            let optionsHTML = '';
+            optionsWithIndices.forEach(opt => {
+                optionsHTML += `
+                    <label class="option-label">
+                        <input type="radio" name="q${q.id}" value="${opt.originalIndex}">
+                        ${opt.text}
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="question-text">${index + 1}. ${q.text}</div>
+                <div class="options-grid">
+                    ${optionsHTML}
+                </div>
+                <div id="feedback-${q.id}" class="feedback"></div>
+            `;
+            
+            // Armazenar a resposta correta no elemento DOM para fácil verificação (Data Attribute)
+            card.dataset.correct = q.correct;
+            card.dataset.id = q.id;
+            
+            wrapper.appendChild(card);
+        });
+    }
+
+    // Calcular Nota
+    function calculateScore() {
+        const btn = document.getElementById('btn-calc');
+        const cards = document.querySelectorAll('.question-card');
+        let score = 0;
+        let answered = 0;
+
+        // Desativar botão (Regra 2d)
+        btn.disabled = true;
+        btn.innerText = "Calculando...";
+
+        cards.forEach(card => {
+            const qId = card.dataset.id;
+            const correctIndex = parseInt(card.dataset.correct);
+            const feedbackEl = document.getElementById(`feedback-${qId}`);
+            
+            // Buscar input selecionado
+            const selected = document.querySelector(`input[name="q${qId}"]:checked`);
+            
+            if (selected) {
+                answered++;
+                const selectedVal = parseInt(selected.value);
+                
+                if (selectedVal === correctIndex) {
+                    score++;
+                    feedbackEl.innerHTML = "✓ Correto!";
+                    feedbackEl.className = "feedback correct";
+                } else {
+                    // Buscar texto da resposta correta
+                    // Precisamos encontrar a pergunta original no pool para pegar o texto limpo
+                    const originalQuestion = questionPool.find(q => q.id == qId);
+                    const correctText = originalQuestion.options[correctIndex];
+                    
+                    feedbackEl.innerHTML = `✗ Incorreto. A resposta certa é: <strong>${correctText}</strong>`;
+                    feedbackEl.className = "feedback incorrect";
+                }
+            } else {
+                 // Não respondida
+                 const originalQuestion = questionPool.find(q => q.id == qId);
+                 const correctText = originalQuestion.options[correctIndex];
+                 feedbackEl.innerHTML = `✗ Não respondida. A resposta certa é: <strong>${correctText}</strong>`;
+                 feedbackEl.className = "feedback incorrect";
+            }
+        });
+
+        // Exibir Resultado Final
+        const resultDisplay = document.getElementById('result-display');
+        resultDisplay.style.display = 'block';
+        resultDisplay.innerHTML = `Sua Nota: ${score} de 10`;
+
+        // Scroll suave para o resultado
+        resultDisplay.scrollIntoView({ behavior: 'smooth' });
+        
+        btn.innerText = "Nota Calculada";
+    }
+
+    // Inicialização
+    window.onload = function() {
+        renderQuiz();
+    };
+
+</script>
+
+</body>
+</html>
